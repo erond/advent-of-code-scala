@@ -1,33 +1,53 @@
-import challenges.twentytwo.Day1
+import challenges.twentytwo.dayone.resolver.{Day1ResolverPart1, Day1ResolverPart2}
+import challenges.twentytwo.daytwo.resolver.{Day2ResolverPart1, Day2ResolverPart2}
 import common.controller.Resolver
 import common.input.InputReader
 
-object Main {
+object Main extends App {
 
-  val resolvers: Map[Int, Map[Int, Resolver]] = Map(
+  val programStart = System.nanoTime()
+
+  lazy val challengesSolved: Map[Int, Map[Int, Seq[Resolver[_]]]] = Map(
     2022 -> Map(
-      1 -> new Day1()
+      1 -> Seq(new Day1ResolverPart1(), new Day1ResolverPart2()),
+      2 -> Seq(new Day2ResolverPart1(), new Day2ResolverPart2())
     )
   )
 
-  def main(args: Array[String]): Unit = {
-    val programStart = System.nanoTime()
-    require(args.length == 2, "2 args expected: year and day to execute (e.g. 2022,1)")
-    val year  = args.head.toInt
-    val day   = args.last.toInt
-    val resolver = resolvers(year)(day)
-    val input = InputReader.readInput(year, day).getOrElse(throw new Exception("Unable to read input"))
-    invokeResolver(resolver, input, 1)
-    invokeResolver(resolver, input, 2)
-    val programEnd = System.nanoTime()
-    println(s"Main program for year=$year and day=$day took ${(programEnd-programStart)/1000} microsec")
+  args.length match {
+    case 0 => // execute all
+      challengesSolved.keys.foreach(processYear)
+    case 1 => // execute year
+      val year = args.head.toInt
+      processYear(year)
+    case 2 => // execute year,day
+      val year                        = args.head.toInt
+      val day                         = args.last.toInt
+      val resolvers: Seq[Resolver[_]] = challengesSolved(year)(day)
+      resolvers.foreach(resolver => invokeResolver(resolver, year, day))
+    case _ => throw new IllegalArgumentException("Only 0 (all), 1 (year), or 2 (year and day) args accepted!")
   }
 
-  def invokeResolver(resolver: Resolver, input: Seq[String], part: Int): Long = {
+  val programEnd = System.nanoTime()
+  println(s"Main program took ${(programEnd - programStart) / 1000} microsec")
+
+  def processYear(aYear: Int): Unit = {
+    val allResolversForTheYear = challengesSolved(aYear)
+    allResolversForTheYear.foreach {
+      case (aDay, resolvers) =>
+        println(s"Processing year $aYear and day $aDay")
+        resolvers.foreach(resolver => invokeResolver(resolver, aYear, aDay))
+    }
+  }
+
+  def invokeResolver(resolver: Resolver[_], aYear: Int, aDay: Int): Long = {
+    val input         = InputReader.readInput(aYear, aDay).getOrElse(throw new Exception("Unable to read input"))
     val resolverStart = System.nanoTime()
-    val solution1 = resolver.resolve(part, input)
-    val resolverEnd = System.nanoTime()
-    println(s"Solution $part is $solution1 - algorithm took ${(resolverEnd - resolverStart) / 1000} microsec")
+    val solution1     = resolver.resolve(input)
+    val resolverEnd   = System.nanoTime()
+    println(
+      s"Solution of ${resolver.getClass.getCanonicalName} is $solution1 - algorithm took ${(resolverEnd - resolverStart) / 1000} microsec"
+    )
     solution1
   }
 
