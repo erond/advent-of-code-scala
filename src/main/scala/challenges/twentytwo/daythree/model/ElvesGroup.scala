@@ -1,7 +1,5 @@
 package challenges.twentytwo.daythree.model
 
-import scala.collection.immutable.HashSet
-
 // assumption: every rucksack has distinct items thanks to parsing
 case class ElvesGroup(rucksacks: Seq[Rucksack]) {
   require(rucksacks.size == 3, "max 3 elves per group")
