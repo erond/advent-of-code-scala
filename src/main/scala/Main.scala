@@ -1,4 +1,5 @@
 import challenges.twentytwo.dayone.resolver.{Day1ResolverPart1, Day1ResolverPart2}
+import challenges.twentytwo.daythree.resolver.{Day3ResolverPart1, Day3ResolverPart2}
 import challenges.twentytwo.daytwo.resolver.{Day2ResolverPart1, Day2ResolverPart2}
 import common.controller.Resolver
 import common.input.InputReader
@@ -10,7 +11,8 @@ object Main extends App {
   lazy val challengesSolved: Map[Int, Map[Int, Seq[Resolver[_]]]] = Map(
     2022 -> Map(
       1 -> Seq(new Day1ResolverPart1(), new Day1ResolverPart2()),
-      2 -> Seq(new Day2ResolverPart1(), new Day2ResolverPart2())
+      2 -> Seq(new Day2ResolverPart1(), new Day2ResolverPart2()),
+      3 -> Seq(new Day3ResolverPart1(), new Day3ResolverPart2())
     )
   )
 
