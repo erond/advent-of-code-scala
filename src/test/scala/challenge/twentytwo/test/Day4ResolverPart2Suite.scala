@@ -24,7 +24,7 @@ class Day4ResolverPart2Suite extends ResolverSuite {
     val parsed = resolver.parse("2-4,6-8")
     parsed should be(
       Some(
-        (Assignment(Seq(2, 3, 4)), Assignment(Seq(6, 7, 8)))
+        (Assignment(2, 4), Assignment(6, 8))
       )
     )
   }

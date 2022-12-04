@@ -1,3 +1,3 @@
 package challenges.twentytwo.dayfour.model
 
-case class Assignment(sectionIDs: Seq[Int])
+case class Assignment(from: Int, to: Int)
