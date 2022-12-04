@@ -16,9 +16,9 @@ class Day4ResolverPart2 extends Resolver[(Assignment, Assignment)] with Day4Pars
         val firstIsSubsetOfSecond =
           (first.from >= second.from && first.from <= second.to) ||
             (first.to <= second.to && first.to >= second.from)
-        lazy val secondIsSubsetOfFirst = !firstIsSubsetOfSecond &&
-          ((second.from >= first.from && second.from <= first.to) ||
-            second.to <= first.to && second.to >= first.to)
+        lazy val secondIsSubsetOfFirst =
+          (second.from >= first.from && second.from <= first.to) ||
+            second.to <= first.to && second.to >= first.to
 
         if (firstIsSubsetOfSecond || secondIsSubsetOfFirst) Some(true) else None
       }

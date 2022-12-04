@@ -10,11 +10,11 @@ class Day4ResolverPart1 extends Resolver[(Assignment, Assignment)] with Day4Pars
     input
       .flatMap(parse)
       .flatMap { assignments =>
-        val first                 = assignments._1
-        val second                = assignments._2
+        val first  = assignments._1
+        val second = assignments._2
         // looking for full overlap
         val firstIsSubsetOfSecond = first.from >= second.from && first.to <= second.to
-        lazy val secondIsSubsetOfFirst = !firstIsSubsetOfSecond && second.from >= first.from && second.to <= first.to
+        lazy val secondIsSubsetOfFirst = second.from >= first.from && second.to <= first.to
 
         if (firstIsSubsetOfSecond || secondIsSubsetOfFirst) Some(true) else None
       }
