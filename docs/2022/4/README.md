@@ -77,7 +77,12 @@ So, in this example, the number of overlapping assignment pairs is 4.
 
 Solution of challenges.twentytwo.dayfour.resolver.Day4ResolverPart1 is 444 - algorithm took 16702 microsec
 Solution of challenges.twentytwo.dayfour.resolver.Day4ResolverPart2 is 801 - algorithm took 3346 microsec
-Main program took 73179 microsec
+
+--- AFTER OPTIMIZATION
+
+Solution of challenges.twentytwo.dayfour.resolver.Day4ResolverPart1 is 444 - algorithm took 4529 microsec
+Solution of challenges.twentytwo.dayfour.resolver.Day4ResolverPart2 is 801 - algorithm took 3216 microsec
+
 
 That's the right answer! You are one gold star closer to collecting enough star fruit.
 
