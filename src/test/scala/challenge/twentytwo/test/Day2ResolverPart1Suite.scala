@@ -7,24 +7,22 @@ import common.test.ResolverSuite
 class Day2ResolverPart1Suite extends ResolverSuite {
 
   override val resolver = new Day2ResolverPart1()
-  override val input: Seq[String] = Seq(
-    "A Y",
-    "B X",
-    "C Z"
-  )
 
   "Day2 resolver part 1" should "calculate the total score" in {
     resolver.resolve(input) should be(15L)
   }
 
   "parser" should "return valid opponent and my move" in {
-    resolver.parse(input.head) should be(Some(ParsedStrategyMove1(A, Y)))
+    resolver.parse(Seq("A Y")) should be(Some(Seq(ParsedStrategyMove1(A, Y))))
   }
 
   it should "return none for invalid strings or invalida values" in {
-    resolver.parse("V A") should be(None)
-    resolver.parse(" ") should be(None)
-    resolver.parse("A") should be(None)
+    resolver.parse(Seq("V A")) should be(None)
+    resolver.parse(Seq(" ")) should be(None)
+    resolver.parse(Seq("A")) should be(None)
   }
 
+  override def year: Int = 2022
+
+  override def day: Int = 2
 }

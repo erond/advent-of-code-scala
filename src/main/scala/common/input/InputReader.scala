@@ -5,10 +5,8 @@ import scala.util.{Try, Using}
 
 object InputReader {
 
-  def readInput(year: Int, day: Int): Try[Seq[String]] = {
-    Using(Source.fromResource(s"$year/$day/input.txt")) { reader =>
-      reader.getLines().toSeq
-    }
-  }
+  final def readInput(year: Int, day: Int): Seq[String] = {
+    Using(Source.fromResource(s"$year/$day/input.txt"))(_.getLines().toSeq)
+  }.getOrElse(throw new UnsupportedOperationException("unable to read input"))
 
 }

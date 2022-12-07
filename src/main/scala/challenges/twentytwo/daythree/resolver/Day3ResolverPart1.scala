@@ -5,16 +5,19 @@ import common.controller.Resolver
 
 import scala.util.Try
 
-class Day3ResolverPart1 extends Resolver[RucksackInCompartments] {
+class Day3ResolverPart1 extends Resolver[Seq[RucksackInCompartments], Long] {
 
   /**
     * Find the item type that appears in both compartments of each rucksack, the return the result
-    * @param input is all the items in rucksack. Every item type is identified by a single lowercase or uppercase letter
+    * input is all the items in rucksack. Every item type is identified by a single lowercase or uppercase letter
     *              (that is, 'a' and 'A' refer to different types of items)
     * @return the sum of the priorities of those item types
     */
-  override def resolve(input: Seq[String]): Long = {
-    input.flatMap(parse).map(_.priorityOfObjectInCommon).sum.toLong
+  override def businessLogic(parsed: Seq[RucksackInCompartments]): Long = {
+    parsed
+      .map(_.priorityOfObjectInCommon)
+      .sum
+      .toLong
   }
 
   /**
@@ -30,14 +33,16 @@ class Day3ResolverPart1 extends Resolver[RucksackInCompartments] {
     * @return the two compartments objects, with related priority of the object in common (and the object, for debug)
     *         but with disting objects for performance reasons
     */
-  override def parse(toParse: String): Option[RucksackInCompartments] = {
+  override def parse(toParse: Seq[String]): Option[Seq[RucksackInCompartments]] = {
     Try {
-      require(toParse.length % 2 == 0, "odd size for rucksack == impossibile to split in equal halves")
-      val (half1, half2) = toParse.splitAt(toParse.length / 2)
-      RucksackInCompartments(
-        half1.toCharArray.toSeq.distinct.map(RucksackObject(_)),
-        half2.toCharArray.toSeq.distinct.map(RucksackObject(_))
-      )
+      toParse.map { s =>
+        require(s.length % 2 == 0, "odd size for rucksack == impossibile to split in equal halves")
+        val (half1, half2) = s.splitAt(s.length / 2)
+        RucksackInCompartments(
+          half1.toCharArray.toSeq.distinct.map(RucksackObject(_)),
+          half2.toCharArray.toSeq.distinct.map(RucksackObject(_))
+        )
+      }
     }.toOption
   }
 }

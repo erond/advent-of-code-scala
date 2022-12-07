@@ -5,17 +5,21 @@ import common.controller.Resolver
 
 import scala.util.Try
 
-class Day2ResolverPart1 extends Resolver[ParsedStrategyMove1] {
+class Day2ResolverPart1 extends Resolver[Seq[ParsedStrategyMove1], Long] {
 
-  override def resolve(input: Seq[String]): Long = {
-    input.flatMap(parse).map(_.totalScore).sum
+  override def businessLogic(parsed: Seq[ParsedStrategyMove1]): Long = {
+    parsed
+      .map(_.totalScore)
+      .sum
   }
 
-  override def parse(toParse: String): Option[ParsedStrategyMove1] = {
+  override def parse(toParse: Seq[String]): Option[Seq[ParsedStrategyMove1]] = {
     // input is like "A X"
     Try {
-      val chars = toParse.toCharArray
-      ParsedStrategyMove1(OpponentMove(chars.head), MyMove(chars.last))
+      toParse.map { s =>
+        val chars = s.toCharArray
+        ParsedStrategyMove1(OpponentMove(chars.head), MyMove(chars.last))
+      }
     }.toOption
   }
 }

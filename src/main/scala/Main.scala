@@ -1,3 +1,4 @@
+import challenges.twentytwo.dayfive.resolver.Day5ResolverPart1
 import challenges.twentytwo.dayfour.resolver.{Day4ResolverPart1, Day4ResolverPart2}
 import challenges.twentytwo.dayone.resolver.{Day1ResolverPart1, Day1ResolverPart2}
 import challenges.twentytwo.daythree.resolver.{Day3ResolverPart1, Day3ResolverPart2}
@@ -9,7 +10,7 @@ object Main extends App {
 
   val programStart = System.nanoTime()
 
-  lazy val challengesSolved: Map[Int, Map[Int, Seq[Resolver[_]]]] = Map(
+  lazy val challengesSolved: Map[Int, Map[Int, Seq[Resolver[_, _]]]] = Map(
     2022 -> Map(
       1 -> Seq(new Day1ResolverPart1, new Day1ResolverPart2),
       2 -> Seq(new Day2ResolverPart1, new Day2ResolverPart2),
@@ -27,7 +28,7 @@ object Main extends App {
     case 2 => // execute year,day
       val year                        = args.head.toInt
       val day                         = args.last.toInt
-      val resolvers: Seq[Resolver[_]] = challengesSolved(year)(day)
+      val resolvers: Seq[Resolver[_, _]] = challengesSolved(year)(day)
       resolvers.foreach(resolver => invokeResolver(resolver, year, day))
     case _ => throw new IllegalArgumentException("Only 0 (all), 1 (year), or 2 (year and day) args accepted!")
   }
@@ -44,15 +45,15 @@ object Main extends App {
     }
   }
 
-  def invokeResolver(resolver: Resolver[_], aYear: Int, aDay: Int): Long = {
-    val input         = InputReader.readInput(aYear, aDay).getOrElse(throw new Exception("Unable to read input"))
+  def invokeResolver(resolver: Resolver[_, _], aYear: Int, aDay: Int): Any = {
+    val input         = InputReader.readInput(aYear, aDay)
     val resolverStart = System.nanoTime()
-    val solution1     = resolver.resolve(input)
+    val solution     = resolver.resolve(input)
     val resolverEnd   = System.nanoTime()
     println(
-      s"Solution of ${resolver.getClass.getCanonicalName} is $solution1 - algorithm took ${(resolverEnd - resolverStart) / 1000} microsec"
+      s"Solution of ${resolver.getClass.getCanonicalName} is $solution - algorithm took ${(resolverEnd - resolverStart) / 1000} microsec"
     )
-    solution1
+    solution
   }
 
 }

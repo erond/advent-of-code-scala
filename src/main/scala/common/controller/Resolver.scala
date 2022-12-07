@@ -2,8 +2,12 @@ package common.controller
 
 import common.input.InputParser
 
-trait Resolver[A] extends InputParser[A] {
+trait Resolver[P, O] extends InputParser[P] {
 
-  def resolve(input: Seq[String]): Long
+  final def resolve(input: Seq[String]): O = {
+    businessLogic(parse(input).getOrElse(throw new Exception("unable to parse input")))
+  }
+
+  def businessLogic(parsed: P): O
 
 }

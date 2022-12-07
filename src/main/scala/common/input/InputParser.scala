@@ -1,7 +1,7 @@
 package common.input
 
-trait InputParser[A] {
+trait InputParser[P] {
 
-  def parse(toParse: String): Option[A]
+  def parse(toParse: Seq[String]): Option[P]
 
 }
