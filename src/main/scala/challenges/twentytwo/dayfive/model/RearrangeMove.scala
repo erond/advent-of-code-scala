@@ -1,3 +1,3 @@
 package challenges.twentytwo.dayfive.model
 
-case class RearrangeMove(from: CratesStack, to: CratesStack, cratesToMove: Int)
+case class RearrangeMove(fromID: Int, toID: Int, cratesToMove: Int)
