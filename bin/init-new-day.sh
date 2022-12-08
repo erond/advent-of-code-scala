@@ -20,7 +20,7 @@ else
   echo "# AoC | Year $REQ_YEAR | Day $REQ_DAY challenge " > "$README_FILE"
 fi
 
-# create input.txt file and folder
+# create input.txt file and folder in src and test
 INPUT_FOLDER="src/main/resources/$REQ_YEAR/$REQ_DAY"
 mkdir "$INPUT_FOLDER"
 INPUT_FILE="$INPUT_FOLDER/input.txt"
@@ -31,5 +31,13 @@ else
   echo "" > "$INPUT_FILE"
 fi
 
-
+INPUT_FOLDER="src/test/resources/$REQ_YEAR/$REQ_DAY"
+mkdir "$INPUT_FOLDER"
+INPUT_FILE="$INPUT_FOLDER/input.txt"
+if test -f "$INPUT_FILE"; then
+    echo "$INPUT_FILE already exists."
+else
+  echo "creating $INPUT_FILE"
+  echo "" > "$INPUT_FILE"
+fi
 
