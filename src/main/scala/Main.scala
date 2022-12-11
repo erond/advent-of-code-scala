@@ -1,6 +1,7 @@
 import challenges.twentytwo.dayfive.resolver.{Day5ResolverPart1, Day5ResolverPart2}
 import challenges.twentytwo.dayfour.resolver.{Day4ResolverPart1, Day4ResolverPart2}
 import challenges.twentytwo.dayone.resolver.{Day1ResolverPart1, Day1ResolverPart2}
+import challenges.twentytwo.dayseven.resolver.{Day7ResolverPart1, Day7ResolverPart2}
 import challenges.twentytwo.daysix.{Day6ResolverPart1, Day6ResolverPart2}
 import challenges.twentytwo.daythree.resolver.{Day3ResolverPart1, Day3ResolverPart2}
 import challenges.twentytwo.daytwo.resolver.{Day2ResolverPart1, Day2ResolverPart2}
@@ -18,7 +19,8 @@ object Main extends App {
       3 -> Seq(new Day3ResolverPart1, new Day3ResolverPart2),
       4 -> Seq(new Day4ResolverPart1, new Day4ResolverPart2),
       5 -> Seq(new Day5ResolverPart1, new Day5ResolverPart2),
-      6 -> Seq(new Day6ResolverPart1, new Day6ResolverPart2)
+      6 -> Seq(new Day6ResolverPart1, new Day6ResolverPart2),
+      7 -> Seq(new Day7ResolverPart1, new Day7ResolverPart2)
     )
   )
 
